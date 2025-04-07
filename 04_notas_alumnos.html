@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <button onclick="nuevaNota();">Nueva nota</button>
+    <br><br>
+    <button onclick="totalAprobados();">Aprobados</button>
+    <button onclick="calcularMedia();">Nota media</button>
+    <button onclick="notaAlta();">Nota más alta</button>
+    <button onclick="notaBaja();">Nota más baja</button>
+    
+    <script>
+        //array con las notas
+        let notas=[7,5,2,4,9,6,1,3,4,8,7,6];
+        function totalAprobados(){
+            let totalAprobados=0;
+            /*for(let i=0;i<notas.length;i++){
+                if(notas[i]>=5){
+                    totalAprobados++;
+                }
+            }*/
+           for(let n of notas){
+            if(n>=5){
+                totalAprobados++;
+            }
+           }
+            alert("Total aprobados: "+totalAprobados);
+        }
+        function calcularMedia(){
+            let media=0;
+            for(let n of notas){
+                media=media+n;
+            }
+            media=media/notas.length;
+            alert("La media es: "+media);
+        }
+        function notaAlta(){
+            let max=notas[0];
+            //recorremos todas las notas y si encontramos
+            //una más que la almacenada en max, actualimos
+            //la variable max con dicha nota
+            for(let n of notas){
+                if(n>max){
+                    max=n;
+                }
+            }
+            alert("La nota más alta es: "+max);
+        }
+        function notaBaja(){
+            let min=notas[0];
+            //recorremos todas las notas y si encontramos
+            //una más baja que la almacenada en min, actualimos
+            //la variable min con dicha nota
+            for(let n of notas){
+                if(n<min){
+                    min=n;
+                }
+            }
+            alert("La nota más baja es: "+min);
+        }
+        function nuevaNota(){
+            //se pide una nota que debe esta comprendida entre 0 y 10
+            //si no está en ese rango, se debe volver a pedir
+            let nota;
+            do{
+                nota=prompt("Introduce nueva nota:");
+            }while(nota<0||nota>10);
+            
+            notas.push(parseInt(nota));
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    Introduce un número:<input id="num1" type="number"><br>
+    Introduce otro número:<input id="num2" type="number"><br>
+    <button onclick="sumarNumeros();">Sumar</button><button onclick="multiplicarNumeros();">Multiplicar</button>
+    <br><br>
+    <div id="result"></div>
+    <script>
+        function sumarNumeros(){
+            //obtenemos los objetos input
+            let n1=document.getElementById("num1");
+            let n2=document.getElementById("num2");
+            //a través de la propiedad value de los objetos input, 
+            //accedemos a su contenido
+            let suma=parseInt(n1.value)+parseInt(n2.value);
+            document.getElementById("result").innerHTML="<b>La suma es: "+suma+"</b>";
+        }
+        function multiplicarNumeros(){
+           //obtenemos los objetos input
+           let n1=document.getElementById("num1");
+            let n2=document.getElementById("num2");
+            //a través de la propiedad value de los objetos input, 
+            //accedemos a su contenido
+            let multi=parseInt(n1.value)*parseInt(n2.value);
+            document.getElementById("result").innerHTML="<b>La multiplicación es: "+multi+"</b>";;
+ 
+        }
+    </script>
+</body>
+</html>

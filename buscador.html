@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Buscador Prototipo</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: #f0f2f5;
+      margin: 0;
+      padding: 40px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .header-image {
+      width: 150px;
+      border-radius: 50%;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+      margin-bottom: 20px;
+    }
+
+    h1 {
+      color: #333;
+      margin-bottom: 20px;
+      font-size: 36px;
+    }
+
+    .search-container {
+      background: #fff;
+      padding: 20px;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+      width: 100%;
+      max-width: 600px;
+      margin-bottom: 30px;
+      display: flex;
+      gap: 10px;
+    }
+
+    input[type="text"] {
+      flex: 1;
+      padding: 12px;
+      font-size: 16px;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+    }
+
+    button {
+      padding: 12px 20px;
+      background-color: #4285f4;
+      color: white;
+      font-size: 16px;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background-color 0.2s;
+    }
+
+    button:hover {
+      background-color: #3367d6;
+    }
+
+    .results {
+      width: 100%;
+      max-width: 600px;
+    }
+
+    .result {
+      background: #fff;
+      padding: 16px;
+      margin-bottom: 20px;
+      border-radius: 10px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+      transition: transform 0.1s ease-in-out;
+    }
+
+    .result:hover {
+      transform: scale(1.01);
+    }
+
+    .result a {
+      font-size: 18px;
+      color: #1a0dab;
+      text-decoration: none;
+      display: block;
+      margin-bottom: 6px;
+    }
+
+    .description {
+      color: #4d4d4d;
+      font-size: 15px;
+      line-height: 1.4;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Imagen superior -->
+  <img class="header-image" src="https://cdn-icons-png.flaticon.com/512/751/751463.png" alt="Icono de búsqueda">
+
+  <h1>Buscador Prototipo</h1>
+
+  <div class="search-container">
+    <input type="text" id="searchInput" placeholder="Introduce una temática...">
+    <button onclick="buscar()">Buscar</button>
+  </div>
+
+  <div class="results" id="results"></div>
+
+  <script>
+    const paginas = [
+      { url: "https://www.nationalgeographic.com/es/ciencia", descripcion: "Descubre artículos científicos sobre el universo, la biología y los avances científicos." },
+      { url: "https://www.bbcmundo.com/ciencia", descripcion: "Noticias actuales del mundo de la ciencia, investigaciones y descubrimientos recientes." },
+      { url: "https://www.planetaciencia.org", descripcion: "Artículos sobre ciencia, física, química y biología explicados de forma sencilla." },
+      { url: "https://www.techcrunch.com", descripcion: "Noticias sobre startups tecnológicas, gadgets, IA y el futuro de la tecnología." },
+      { url: "https://www.xataka.com", descripcion: "Actualidad tecnológica: móviles, ordenadores, ciencia y cultura geek." },
+      { url: "https://www.techtrends.today", descripcion: "Últimas tendencias en tecnología, gadgets e inteligencia artificial." },
+      { url: "https://www.mundofutbol.com", descripcion: "Noticias, resultados y análisis del mundo del fútbol internacional." },
+      { url: "https://www.marca.com", descripcion: "Noticias de fútbol, baloncesto, tenis y otros deportes en tiempo real." },
+      { url: "https://www.deportehoy.com", descripcion: "Cobertura de eventos deportivos nacionales e internacionales, entrevistas y análisis." },
+      { url: "https://www.cocinacasera.com", descripcion: "Recetas caseras fáciles y rápidas para el día a día." },
+      { url: "https://www.fitnessencasa.com", descripcion: "Rutinas de ejercicio y consejos de salud para entrenar desde casa." },
+      { url: "https://www.programacionparaweb.com", descripcion: "Guías de desarrollo web con HTML, CSS, JavaScript y frameworks modernos." },
+      { url: "https://www.psicologiaviva.org", descripcion: "Recursos sobre psicología, bienestar emocional y salud mental." },
+      { url: "https://www.ecoviajeros.com", descripcion: "Consejos para viajar de forma sostenible y respetuosa con el medio ambiente." },
+    ];
+
+    function buscar() {
+      const termino = document.getElementById("searchInput").value.toLowerCase().trim();
+      const resultados = paginas.filter(p =>
+        p.descripcion.toLowerCase().includes(termino) ||
+        p.url.toLowerCase().includes(termino)
+      );
+
+      const resultsContainer = document.getElementById("results");
+      resultsContainer.innerHTML = "";
+
+      if (!termino) {
+        resultsContainer.innerHTML = "<p>Por favor, introduce una temática para buscar.</p>";
+        return;
+      }
+
+      if (resultados.length === 0) {
+        resultsContainer.innerHTML = "<p>No se encontraron resultados.</p>";
+        return;
+      }
+
+      resultados.forEach(pagina => {
+        const resultDiv = document.createElement("div");
+        resultDiv.className = "result";
+        resultDiv.innerHTML = `
+          <a href="${pagina.url}" target="_blank">${pagina.url}</a>
+          <p class="description">${pagina.descripcion}</p>
+        `;
+        resultsContainer.appendChild(resultDiv);
+      });
+    }
+  </script>
+
+</body>
+</html>
