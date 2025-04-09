@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    Temática:<input type="text" id="tematica"><br><br>
+    <button onclick="buscar();">Buscar</button>
+    <div id="resultados">
+
+
+    </div>
+
+
+
+    <script>
+        let datos=[
+        "deportes|http://www.marca.es",
+        "libros|http://www.puntolibro.es",
+        "deportes|http://www.todofutbol.com",
+        "libros|http://www.fnac.es",
+        "cocina|http://www.fogones.es",
+        "juegos|http://www.game.es"
+        ];
+        function buscar(){
+
+            let direcciones=[];
+            let tematica=document.getElementById("tematica").value;
+            tematica=tematica.toLowerCase();
+            //recorre el array de elementos
+            //y los separa en sus partes
+            //guarda en el array direcciones, aquellas que pertenecezcan
+            //a la temática indicada en la caja de texto
+            for(let item of datos){
+                let trozos=item.split("|");
+                if(tematica==trozos[0]){
+                    direcciones.push(trozos[1])
+                }
+            }
+            //volcar el contenido de array direcciones en el div
+            let html="";
+            for(let d of direcciones){
+                //html=html+d+"<br>";
+                html+=d+"<br>";
+            }
+            document.getElementById("resultados").innerHTML=html;
+        }
+    </script>
+</body>
+</html>
