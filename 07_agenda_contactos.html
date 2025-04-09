@@ -17,16 +17,41 @@
         //array donde guardamos los nombres
         let nombres=[];
         function guardar(){
+            //impedir que los nombres se repitan
             let n=document.getElementById("nombre").value;
-            nombres.push(n);
-            alert("Contacto guardado");
+            let repetido=false;
+            //recorremos el array y si encontramos un nombre igual al de la varaible n
+            //ponemos la variable repetido al valor true
+            for(let nombre of nombres){
+                if(nombre==n){
+                    repetido=true;
+                }
+            }
+            if(repetido==false){
+                nombres.push(n);
+                alert("Contacto guardado");
+            }else{
+                alert("No añadido, el contacto ya existe!!!");
+            }
+            //limpiar la caja de texto
+            document.getElementById("nombre").value="";
         }
         function mostrar(){
             let html="";
+            /*
             for(let n of nombres){
-                html=html+"<b>"+n+"</b><br>";
+                html=html+"<b>"+n+"</b><a onclick='borrar();'><img src='papelera.png' height='20px' width='20px'></a><br>";
+            }*/
+            for(let i=0;i<nombres.length;i++){
+                //html=html+"<b>"+nombres[i]+"</b><a onclick='borrar("+i+");'><img src='papelera.png' height='20px' width='20px'></a><br>";
+                html=html+`<b>${nombres[i]}</b><a onclick='borrar(${i});'><img src='papelera.png' height='20px' width='20px'></a><br>`;
             }
             document.getElementById("listaNombres").innerHTML=html;
+        }
+        function borrar(pos){
+            //borra el nombre que está en la posición pos
+            nombres.splice(pos,1);
+            mostrar();
         }
     </script>
 </body>
