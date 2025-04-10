@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    Nombre:<input type="text" id="nombre"><br><br>
+    Curso:<input type="text" id="curso"><br><br>
+    Nota:<input type="number" id="nota"><br><br>
+    <button onclick="guardar();">Guardar</button><button onclick="visualizar();">Ver datos</button>
+    <br><br>
+    <div id="resultado"></div>
+    <script>
+        let jsonAlumno;
+        function guardar(){
+            //recogemos los valores de las cajas de texto
+            //y los guardamos en variables
+            let txtNombre=document.getElementById("nombre").value;
+            let txtCurso=document.getElementById("curso").value;
+            let txtNota=document.getElementById("nota").value;     
+            jsonAlumno={"nombre":txtNombre,"curso":txtCurso,"nota":txtNota};
+        }
+        function visualizar(){
+            //console.log(jsonAlumno);
+            let frase="Te llamas "+jsonAlumno.nombre+" estas en el curso "+jsonAlumno.curso+" tu nota es: "+jsonAlumno.nota;
+            document.getElementById("resultado").innerHTML=frase;
+        }
+    </script>
+</body>
+</html>
