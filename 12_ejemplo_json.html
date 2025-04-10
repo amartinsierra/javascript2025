@@ -24,7 +24,8 @@
         }
         function visualizar(){
             //console.log(jsonAlumno);
-            let frase="Te llamas "+jsonAlumno.nombre+" estas en el curso "+jsonAlumno.curso+" tu nota es: "+jsonAlumno.nota;
+            //let frase="Te llamas "+jsonAlumno.nombre+" estas en el curso "+jsonAlumno.curso+" tu nota es: "+jsonAlumno.nota;
+            let frase=`Te llamas ${jsonAlumno.nombre} estas en el curso ${jsonAlumno.curso} tu nota es: ${jsonAlumno.nota}`;
             document.getElementById("resultado").innerHTML=frase;
         }
     </script>
