@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    ¿Hasta que número que sumar, empezando por 1, para alcanzar el valor 1000?
+    <br>
+    <button onclick="calcular();">Responder</button>
+    <br>
+    <div id="resultado">
+
+    </div>
+    <div id="suma">
+
+    </div>
+    <script>
+        function calcular(){
+            let suma=0;
+            let contador=1;
+            while(suma<1000){
+                suma=suma+contador;
+                contador=contador+1;
+            }
+            console.log(contador);
+            console.log(suma);
+            //mostramos el valor del contador en el div
+            let divResultado=document.getElementById("resultado");
+            divResultado.innerHTML="<b>"+contador+"</b>";
+
+            let divSuma=document.getElementById("suma");
+            divSuma.innerHTML="<b>"+suma+"</b>";
+        }
+    </script>
+</body>
+</html>
