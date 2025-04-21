@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    Introduce nombre:<input type="text" id="nombre"><br>
+    Introduce email:<input type="text" id="email"><br>
+    Introduce teléfono:<input type="text" id="telefono"><br>
+    
+    <button onclick="guardar();">Guardar</button>   
+    <button onclick="mostrar();">Mostrar</button>
+    <br><br>
+    <table id="tablaContactos">
+
+    </table>
+
+    <script>
+        //array donde guardamos los contactos
+        let contactos=[];
+        //recogemos los datos de cada caja, montamos un JSON con los mismos
+        //y lo añadimos al array de contactos
+        function guardar(){       
+            let nombre=document.getElementById("nombre").value;
+            let email=document.getElementById("email").value;
+            let telefono=document.getElementById("telefono").value;
+            let contacto={
+                "nombre":nombre,
+                "email":email,
+                "telefono":telefono
+            };
+            contactos.push(contacto);
+
+            //limpiar las cajas de texto
+            document.getElementById("nombre").value="";
+            document.getElementById("email").value="";
+            document.getElementById("telefono").value="";
+            document.getElementById("nombre").focus();
+        }
+        function mostrar(){
+            let html="<tr><th>Nombre</th><th>Email</th><th>Teléfono</th><th></th></tr>";
+            /*
+            for(let n of nombres){
+                html=html+"<b>"+n+"</b><a onclick='borrar();'><img src='papelera.png' height='20px' width='20px'></a><br>";
+            }*/
+            for(let i=0;i<contactos.length;i++){
+                //html=html+"<b>"+nombres[i]+"</b><a onclick='borrar("+i+");'><img src='papelera.png' height='20px' width='20px'></a><br>";
+                html=html+`<tr><td>${contactos[i].nombre}</td><td>${contactos[i].email}</td><td>${contactos[i].telefono}</td><td><a onclick='borrar(${i});'><img src='papelera.png' height='20px' width='20px'></a></td></tr>`;
+            }
+            document.getElementById("tablaContactos").innerHTML=html;
+        }
+        function borrar(pos){
+            //borra el nombre que está en la posición pos
+            contactos.splice(pos,1);
+            mostrar();
+        }
+    </script>
+</body>
+</html>

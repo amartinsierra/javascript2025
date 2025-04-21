@@ -9,7 +9,7 @@
     Temática:<input type="text" id="tematica"><br><br>
     <button onclick="buscar();">Buscar</button>
     <div id="resultados">
-
+       
 
     </div>
 
@@ -26,24 +26,23 @@
         ];
         function buscar(){
 
-            let direcciones=[];
+            let resultados=[];
+            //recoge la temática introducida
             let tematica=document.getElementById("tematica").value;
             tematica=tematica.toLowerCase();
-            //recorre el array de elementos
-            //y los separa en sus partes
-            //guarda en el array direcciones, aquellas que pertenecezcan
-            //a la temática indicada en la caja de texto
-            for(let item of datos){
-                let trozos=item.split("|");
-                if(tematica==trozos[0]){
-                    direcciones.push(trozos[1])
+            //recorremos el array de datos y buscamos los JSON que 
+            //pertenezcan a la temática introducida. Los que coincidan
+            //los guardamos en la variable resultados
+            for(let r of datos){
+                if(r.tematica==tematica){
+                    resultados.push(r);
                 }
             }
-            //volcar el contenido de array direcciones en el div
+            //volcar el contenido de array resultados en el div
             let html="";
-            for(let d of direcciones){
+            for(let d of resultados){
                 //html=html+d+"<br>";
-                html+=d+"<br>";
+                html+=d.tematica+","+d.direccion+"<br>";
             }
             document.getElementById("resultados").innerHTML=html;
         }
