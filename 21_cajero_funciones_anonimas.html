@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+
+    section {display: inline-block;}
+    #tabla{
+
+        display: flow;
+        max-height: 300px;
+        overflow: scroll;
+        width: fit-content;
+    }
+
+    h1{
+        background-color: royalblue;
+        color: azure;
+        text-align: center;
+        display: flex;
+        flex-direction: column;
+
+    }
+
+    .cabecera{
+
+        background-color: rgb(240, 240, 240);
+        border: royalblue solid 3px;
+        border-radius: 5px;
+        width: fit-content;
+        
+
+    }
+
+
+    .datos{
+        width: auto;
+        font-size: large;
+        margin-bottom: 3px;
+        background-color: rgb(223, 223, 223);
+        color: rgb(0, 36, 66);
+        padding: 5px;
+        border-radius: 5px;
+    }
+
+    button{
+        margin: 5px;
+        padding: 5px;
+        font-size: large;
+        color: rgb(0, 0, 0);
+    }
+    
+    #ingresar{
+            background-color: rgb(134, 204, 42);
+            font-weight: 400;
+            
+        }
+
+    #retirar{
+            background-color: darkred;
+            color: azure;
+            font-weight: 500;
+        }
+
+    #grabarSaldo{
+            background-color: royalblue;
+            color: azure;
+            font-weight: 500;
+        }
+
+    #mostrar{
+            background-color: royalblue;
+            color: azure;
+            font-weight: 500;
+        }
+
+
+
+    th{
+        color:azure;
+        background-color: cornflowerblue;
+        align-content: center;
+        border-left-style: solid;
+        border-right-style: solid;
+        border-left-width: 1px;
+        border-right-width: 1px;
+        padding-left: 10px;
+        padding-right: 10px;
+        height: 30px;
+    }
+
+    td{
+        background-color: rgb(235, 235, 235);
+        color: rgb(0, 0, 0);
+        text-align: center;
+        padding: 10px;
+        font-weight: bold;
+        border-bottom: rgb(173, 173, 173) 2px solid;
+
+    }
+
+    .negativo{
+        color: brown;
+    }
+
+    .positivo{
+        color: rgb(5, 152, 197);
+    }
+
+
+
+
+</style>
+
+
+
+<body>
+
+    <div id="superior">
+
+        <h1>BIENVENIDO A SU BANCO PERSONAL</h1>
+
+        <h3>SALDO INICIAL:</h3> <input class="datos" type="number" id="saldoInicial">
+        <button id="grabarSaldo" class="grabar" >GRABAR SALDO</button><br><br>
+        <hr>
+
+
+    </div>
+
+    <div id="cuerpoOperaciones">
+
+        <section><h3>CANTIDAD</h3><input class="datos" type="number" id="operaciones" style="margin-right: 20px;"><br></section>
+        <section><h3>CONCEPTO</h3><input class="datos" type="text" id="concepto"><br></section><br>
+        <button  id="ingresar" >INGRESAR</button><button id="retirar" class="button.ingresar" >RETIRAR</button><br><br>
+        <button id="mostrar" style="align-self: center;">MOSTRAR</button><br>
+        <hr>
+
+    </div>
+
+    <div id="cabez">
+        <table id="tabla">
+
+
+        </table>
+    </div>
+    <script>
+        let saldo=0;
+        let movimientos=[];
+        //asociamos eventos en objetos html con sus funciones de respuesta
+        document.getElementById("grabarSaldo").addEventListener("click",
+            function(){
+                saldo=document.getElementById("saldoInicial").value;
+                saldo=parseFloat(saldo);
+                //si saldo es negativo, se lo pongo a 0
+                if(saldo<0){
+                    saldo=0;
+                    alert("El saldo inicial no puede ser negativo, se queda en 0");
+                }
+            }
+        );
+        document.getElementById("ingresar").addEventListener("click",
+            function (){
+                let cantidad=parseFloat(document.getElementById("operaciones").value);
+                saldo=saldo+cantidad;
+                let concepto=document.getElementById("concepto").value
+                let movimiento={"cantidad":cantidad,"tipo":"ingreso","concepto":concepto};
+                movimientos.push(movimiento);
+                limpiar();
+            }
+        );
+        document.getElementById("retirar").addEventListener("click",
+            function (){
+                let cantidad=parseFloat(document.getElementById("operaciones").value);
+                saldo=saldo-cantidad;
+                let concepto=document.getElementById("concepto").value
+                let movimiento={"cantidad":cantidad,"tipo":"retirada","concepto":concepto};
+                movimientos.push(movimiento);
+                limpiar();
+            }
+        );
+        document.getElementById("mostrar").addEventListener("click",
+            function (){
+                let html="<tr><th>Tipo</th><th>Cantidad</th><th>Concepto</th></tr>";
+                for(let m of movimientos){
+                    html=html+`<tr><td>${m.tipo}</td><td>${m.cantidad}</td><td>${m.concepto}</td></tr>`;            
+                }
+                //volcado en la etiqueta tabla:
+                document.getElementById("tabla").innerHTML=html;
+            }
+
+        );
+        
+        //borra el contenido de las cajas y lleva el curso a la primera
+        function limpiar(){
+            document.getElementById("operaciones").value="";
+            document.getElementById("concepto").value="" ;
+            document.getElementById("operaciones").focus();//lleva el cursor a esa caja
+        }
+
+        
+        
+    </script>
+</body>
+</html>
