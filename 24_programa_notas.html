@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        let notas=[8.9,6.7,4.0,2.6,5.5,4.7,10.0];
+        //mostrar los aprobados
+        notas.filter(n=>n>=5.0)
+        .forEach((n)=>console.log(n));
+
+        //mostrar la nota media
+        let suma=notas.reduce((aux,n)=>aux+n);
+        let media=suma/notas.length;
+        console.log(`Nota media ${media}`);
+        //quitar uno a cada nota
+        notas=notas.map(n=>n-1);
+        console.log(notas);
+    </script>
+</body>
+</html>

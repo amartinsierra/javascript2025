@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body onload="cargarTematicas();">
+    Temática:
+    <select id="tematica" onchange="cargarDatos();">
+        
+    </select>
+    <br><br>
+    
+    <table id="resultados">
+       
+
+    </table>
+
+
+
+    <script>
+        let datos=[
+        {"tematica":"deportes","direccion":"http://www.marca.es"},
+        {"tematica":"libros","direccion":"http://www.puntolibro.es"},
+        {"tematica":"deportes","direccion":"http://www.todofutbol.com"},
+        {"tematica":"libros","direccion":"http://www.fnac.es"},
+        {"tematica":"cocina","direccion":"http://www.fogones.es"},
+        {"tematica":"juegos","direccion":"http://www.game.es"}
+        ];
+        
+
+        function cargarTematicas(){
+            //creamos un array solo para las temáticas
+            let tematicas=[];
+            tematicas.push("Todos");
+            for(let d of datos){
+                tematicas.push(d.tematica);
+            }
+            //creamos un conjunto a partir de array de tematicas
+            //y así eliminamos temáticas duplicadas
+            let conjunto=new Set(tematicas);
+            let html="";
+            for(let c of conjunto){
+                html=html+`<option>${c}</option>`;
+            }
+            document.getElementById("tematica").innerHTML=html;
+        }
+        //debe generar tantas filas de tabla como json del array coincidan
+        //con la temática seleccionada
+        function cargarDatos(){
+            let tematicaSeleccionada=document.getElementById("tematica").value;
+            let html="<tr><th>Tematica</th><th>Dirección</th></tr>";
+            for(let r of datos){
+                //si el elemento coincide con la tematica seleccionada, o se ha seleccionado
+                //la palabra "Todos", en ambos casos habría que construir la fila
+                if(r.tematica==tematicaSeleccionada||tematicaSeleccionada=="Todos"){
+                    html=html+`<tr><td>${r.tematica}</td><td>${r.direccion}</td></tr>`;
+                }                    
+            }
+            //volcado en la etiqueta tabla:
+            document.getElementById("resultados").innerHTML=html;
+        }
+    </script>
+</body>
+</html>
