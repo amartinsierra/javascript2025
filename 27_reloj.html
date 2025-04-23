@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1 id="reloj"></h1>
+
+    <script>
+        setInterval(()=>{
+            const fecha=new Date();
+            let hora=fecha.getHours();
+            let minutos=fecha.getMinutes();
+            let segundos=fecha.getSeconds();
+            if(hora<10){
+                hora="0"+hora;
+            }
+            if(minutos<10){
+                minutos="0"+minutos;
+            }
+            if(segundos<10){
+                segundos="0"+segundos;
+            }
+            document.getElementById("reloj").innerHTML=`${hora}:${minutos}:${segundos}`;
+        },500);
+
+    </script>
+</body>
+</html>
