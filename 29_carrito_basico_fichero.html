@@ -6,6 +6,10 @@
     <title>Document</title>
 </head>
 <body>
+    <!--utilizamos el atributo accept para que solo pueda elegir
+    archivos con dicha extensión-->
+    Seleccione archivo: <input type="file" id="archivo" accept=".json" />
+    <br><br>
     <h1>Catálogo de productos</h1>
     <table id="catalogo">
 
@@ -20,22 +24,40 @@
 
     </div>
     <script>
-        let catalogo=[
-            {producto:"pan",categoria:"Alimentación",precio:1.2},
-            {producto:"guantes",categoria:"Textil",precio:22.5},
-            {producto:"zapatos",categoria:"Textil",precio:65.0},
-            {producto:"pantalla",categoria:"Informática",precio:200},
-            {producto:"teclado",categoria:"Informática",precio:35.8},
-            {producto:"leche",categoria:"Alimentación",precio:2.0}
-        ];
+        let catalogo=[];
         let carrito=[];
-        document.addEventListener("DOMContentLoaded",()=>{
+
+        document.getElementById("archivo").addEventListener("change",(event)=>{
+            //recogemos el fichero seleccionado en componente file de html
+            let fichero=event.target.files[0];
+            //creamos un objeto FileReader, que es el encargado de leer datos
+            //de un fichero
+            let lector=new FileReader();
+            //programamos los sucesos que se van a producir durante la lectura del documento
+            lector.onload=(e)=>{
+                //volcamos el contenido del fichero el array catalogo
+                catalogo=JSON.parse(e.target.result);//representa el contenido del fichero
+                //llamamos a la función cargar catálogo
+                //para que nos muestre la tabla de productos del catálogo
+                cargarCatalogo();
+            }
+            //en caso de error durante la lectura
+            lector.onerror=()=>{
+                alert("Error en la lectura");
+            }
+
+            //leemos el contenido del fichero
+            lector.readAsText(fichero);
+        });
+        //esta función se encarga de mostrar la tabla con el catálogo de productos
+        function cargarCatalogo(){
+           
             let html="<tr><th>Producto</th><th>Categoria</th><th>Precio</th><th></th></tr>";
             catalogo.forEach((p,indice)=>{
                 html=html+`<tr><td>${p.producto}</td><td>${p.categoria}</td><td>${p.precio}</td><td><button onclick="agregar(${indice})">Agregar</button></td></tr>`;
             });
             document.getElementById("catalogo").innerHTML=html;
-        });
+        };
 
         function agregar(indice){
             carrito.push(catalogo[indice]);
